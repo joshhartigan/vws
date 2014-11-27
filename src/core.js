@@ -1,44 +1,44 @@
-window.onload = main
-
-function main() {
-  var canvas = document.getElementById('v')
-  var ctx = canvas.getContext('2d')
-
-  canvas.width = 800
-  canvas.height = 600
-
-  initDraw(ctx, canvas.width, canvas.height)
+window.onload = function() {
+  initialise() // line 27
+  drawMenuBar() // line 40
 }
 
-function initDraw(ctx, W, H, menuBar) {
-  var FONT_SIZE = 14
-  ctx.font = String(FONT_SIZE) + 'px monospace' // this should remain constant
+var canvas,   // the canvas element that the graphics are drawn onto.
+    graphics  // container of graphics methods for drawing things.
 
-  ctx.strokeRect(0, 0, W, H)
+var WIDTH,    // the dimensions of the
+    HEIGHT    // canvas element.
 
-  menuBar = menuBar || {
-    color: 'blue',
-    items: [ 'open', 'help' ],
-    clickAreas: {}
-  }
+var constants = {
+  menuHeight: 30,         // how tall the menu bar should be
+  menuColor: 'blue',      // the color of the menu bar
+  textColor: 'white',     // the text color for the majority of the GUI
+  font: '14px monospace'  // the font that all GUI is written in
+}
 
-  // draw menu bar
-  ctx.fillStyle = menuBar.color
-  ctx.fillRect(0, 0, W, 30)
+/**
+ * initialise:
+ *   set up the constants for vws
+ *   and get things ready for
+ *   interaction.
+ */
+function initialise() {
+  canvas = document.getElementById('v')
+  graphics = canvas.getContext('2d')
 
-  // fill menu bar with text
-  var textLengthSoFar = 10;
-  for (var i = 0; i < menuBar.items.length; i++) {
-    var text = menuBar.items[i]
-    ctx.fillStyle = 'white'
-    ctx.fillText(text, textLengthSoFar, 20)
+  WIDTH = 800
+  HEIGHT = 600
 
-    // we must define a sub-area of the menu bar on which
-    // the user can click to 'activate' that menu item
-    menuBar.clickAreas[text] = { from: textLengthSoFar, to: text.length * FONT_SIZE }
+  canvas.width = WIDTH
+  canvas.height = HEIGHT
 
-    textLengthSoFar += text.length * FONT_SIZE
-  }
+  // there is a border around vws to distinguish it from
+  // the rest of the page
+  graphics.strokeRect(0, 0, WIDTH, HEIGHT)
+}
 
+function drawMenuBar() {
+  graphics.fillStyle = constants.menuColor
+  graphics.fillRect(0, 0, WIDTH, constants.menuHeight)
 }
 
