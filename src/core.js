@@ -1,6 +1,7 @@
 window.onload = function() {
-  initialise() // line 27
-  drawMenuBar() // line 40
+  initialise()
+  drawMenuBar()
+  clickListener()
 }
 
 var canvas,   // the canvas element that the graphics are drawn onto.
@@ -13,7 +14,9 @@ var constants = {
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
   textColor: 'white',     // the text color for the majority of the GUI
-  font: '14px monospace'  // the font that all GUI is written in
+  fontSize: 14,           // size of font for all GUI
+  font: '14px monospace', // actual font for all GUI
+  padding: 10             // a value used for whitespace in some areas
 }
 
 /**
@@ -32,13 +35,73 @@ function initialise() {
   canvas.width = WIDTH
   canvas.height = HEIGHT
 
+  graphics.font = constants.font
+
   // there is a border around vws to distinguish it from
   // the rest of the page
   graphics.strokeRect(0, 0, WIDTH, HEIGHT)
 }
 
+var menuBar = {
+  /*
+  'example': {
+    position: {
+      start: [x-coord of where the button starts],
+      end: [x-coord of where the button ends]
+    },
+    call: [whichever function 'example' should call]
+    active: true // whether or not 'example' can be selected
+  }
+  */
+  'open': {
+    position: { start: 0, end: 0 },
+    call: function() {
+      alert('you can\'t open anything yet...')
+    }
+  },
+  'help': {
+    position: { start: 0, end: 0 },
+    call: function() {
+      alert('what?! help yourself!')
+    }
+  }
+}
+
 function drawMenuBar() {
   graphics.fillStyle = constants.menuColor
   graphics.fillRect(0, 0, WIDTH, constants.menuHeight)
+
+  graphics.fillStyle = constants.textColor
+  var textLengthSoFar = constants.padding
+  for (item in menuBar) {
+    graphics.fillText(item, textLengthSoFar, 20)
+    menuBar[item].position.start = textLengthSoFar
+    textLengthSoFar += item.length * constants.fontSize
+    menuBar[item].position.end = textLengthSoFar
+  }
+}
+
+function clickListener() {
+  // it's best to have one event listener on to
+  // the canvas element, and feed the values of
+  // the events into seperate functions once
+  // certain conditions are met.
+  canvas.addEventListener( 'click', function(event) {
+    var x = event.clientX,
+        y = event.clientY
+
+    if (y > 0 && y < constants.menuHeight) {
+      menuClickListener(x)
+    }
+
+  })
+}
+
+function menuClickListener(x) {
+  for (item in menuBar) {
+    if (x >= menuBar[item].position.start && x <= menuBar[item].position.end) {
+      menuBar[item].call()
+    }
+  }
 }
 
