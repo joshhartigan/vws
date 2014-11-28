@@ -13,6 +13,7 @@ var WIDTH,    // the dimensions of the
 var constants = {
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
+  bgColor: 'lightgrey',   // the background color for windows
   textColor: 'white',     // the text color for the majority of the GUI
   fontSize: 14,           // size of font for all GUI
   font: '14px monospace', // actual font for all GUI
@@ -61,9 +62,7 @@ var menuBar = {
   },
   'help': {
     position: { start: 0, end: 0 },
-    call: function() {
-      alert('what?! help yourself!')
-    }
+    call: showHelp
   }
 }
 
@@ -115,5 +114,19 @@ function menuClickListener(x) {
       menuBar[item].call()
     }
   }
+}
+
+function showHelp() {
+
+  var windowWidthHeight = 200,
+      windowWidthLength = 400
+
+  graphics.fillStyle = constants.bgColor
+  graphics.fillRect(
+    (WIDTH / 2) - (windowWidthLength / 2),   // x1
+    (HEIGHT / 2) - (windowWidthHeight / 2),  // y1
+    windowWidthLength,
+    windowWidthHeight
+  )
 }
 
