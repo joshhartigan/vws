@@ -20,10 +20,12 @@ var constants = {
 }
 
 /**
+ * =============================================================
  * initialise():
  *   set up the constants for vws
  *   and get things ready for
  *   interaction.
+ * =============================================================
  */
 function initialise() {
   canvas = document.getElementById('v')
@@ -39,7 +41,7 @@ function initialise() {
   graphics.strokeRect(0, 0, constants.width, constants.height)
 }
 
-var menuBar = {
+var menuBar = { // {{{
   /*
   'example': {
     position: {
@@ -50,33 +52,46 @@ var menuBar = {
     active: true // whether or not 'example' can be selected
   }
   */
-  'open': {
+  'close': {
     position: { start: 0, end: 0 },
     call: function() {
-      alert('you can\'t open anything yet...')
+      windows.splice(windows.length - 1, 1)
+      drawWindows()
     }
+  },
+  'open': {
+    position: { start: 0, end: 0 },
+    call: function() { createWindow(
+      10, 40, 600, 240,
+      'a window',
+      [ 'a window has been',
+        'opened up onto your',
+        'screen. that\'s it.' ]
+    ); drawWindows() }
   },
   'help': {
     position: { start: 0, end: 0 },
     call: function() { createWindow(
-      /* xPos   */ (constants.width / 2) - 100,
-      /* yPos   */ (constants.height / 2) - 50,
-      /* width  */ 200,
-      /* height */ 100,
-      /* title  */ 'help',
+      (constants.width / 2) - 100,
+      (constants.height / 2) - 50,
+      200,
+      100,
+      'help',
       [ 'i cannot help you.',
         'there is no help left',
         'in this world.',
         'goodbye.' ]
     ); drawWindows() }
   }
-}
+} // }}}
 
 /**
+ * =============================================================
  * drawMenuBar():
  *   put the menu bar on the canvas
  *   and fill it with text for each
  *   item.
+ * =============================================================
  */
 function drawMenuBar() {
   graphics.fillStyle = constants.menuColor
@@ -126,10 +141,12 @@ function clickListener() {
 }
 
 /**
+ * =============================================================
  * menuClickListener():
  *   carry out events after clicking
  *   on the menu bar, depending on
  *   the x coord of the cursor.
+ * =============================================================
  */
 function menuClickListener(x) {
   for (item in menuBar) {
@@ -140,12 +157,20 @@ function menuClickListener(x) {
 }
 
 /**
+ * =============================================================
  * createWindow():
  *   forms a window object from the
  *   arguments supplied, and adds it
  *   to the `windows` array.
+ * =============================================================
  */
 function createWindow(xPos, yPos, width, height, titlestr, lines) {
+  for (var i = 0; i < windows.length; i++) {
+    if (windows[i].titlestr === titlestr) {
+      windows.splice(i, 1)
+    }
+  }
+
   windows.push({
     position: {
       x: xPos,
@@ -161,12 +186,19 @@ function createWindow(xPos, yPos, width, height, titlestr, lines) {
 }
 
 /**
+ * =============================================================
  * drawWindows():
  *   draw all of the windows
  *   from the `windows` array
  *   onto the screen
+ * =============================================================
  */
 function drawWindows() {
+  // clear screen
+  graphics.fillStyle = 'white'
+  graphics.fillRect(1, constants.menuHeight,
+                    constants.width - 2, constants.height - constants.menuHeight - 1)
+
   for (var i = 0; i < windows.length; i++) {
     // draw window background
     graphics.fillStyle = constants.bgColor
@@ -196,4 +228,3 @@ function drawWindows() {
     }
   }
 }
-
