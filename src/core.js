@@ -7,17 +7,16 @@ window.onload = function() {
 var canvas,   // the canvas element that the graphics are drawn onto.
     graphics  // container of graphics methods for drawing things.
 
-var WIDTH,    // the dimensions of the
-    HEIGHT    // canvas element.
-
 var constants = {
+  width: 800,             // x dimension of the screen
+  height: 600,            // y dimension of the screen
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
   bgColor: 'lightgrey',   // the background color for windows
   textColor: 'white',     // the text color for the majority of the GUI
   fontSize: 14,           // size of font for all GUI
   font: '14px monospace', // actual font for all GUI
-  padding: 10             // a value used for whitespace in some areas
+  padding: 10,            // a value used for whitespace in some areas
 }
 
 /**
@@ -30,17 +29,14 @@ function initialise() {
   canvas = document.getElementById('v')
   graphics = canvas.getContext('2d')
 
-  WIDTH = 800
-  HEIGHT = 600
-
-  canvas.width = WIDTH
-  canvas.height = HEIGHT
+  canvas.width = constants.width
+  canvas.height = constants.height
 
   graphics.font = constants.font
 
   // there is a border around vws to distinguish it from
   // the rest of the page
-  graphics.strokeRect(0, 0, WIDTH, HEIGHT)
+  graphics.strokeRect(0, 0, constants.width, constants.height)
 }
 
 var menuBar = {
@@ -62,7 +58,17 @@ var menuBar = {
   },
   'help': {
     position: { start: 0, end: 0 },
-    call: showHelp
+    call: function() { createWindow(
+      /* xPos   */ (constants.width / 2) - 100,
+      /* yPos   */ (constants.height / 2) - 50,
+      /* width  */ 200,
+      /* height */ 100,
+      /* title  */ 'help',
+      [ 'i cannot help you.',
+        'there is no help left',
+        'in this world.',
+        'goodbye.' ]
+    ); drawWindows() }
   }
 }
 
@@ -74,7 +80,7 @@ var menuBar = {
  */
 function drawMenuBar() {
   graphics.fillStyle = constants.menuColor
-  graphics.fillRect(0, 0, WIDTH, constants.menuHeight)
+  graphics.fillRect(0, 0, constants.width, constants.menuHeight)
 
   graphics.fillStyle = constants.textColor
   var textLengthSoFar = constants.padding
@@ -85,6 +91,23 @@ function drawMenuBar() {
     menuBar[item].position.end = textLengthSoFar
   }
 }
+
+var windows = [
+  /*
+  example: {
+    position: {
+      xPos: [x-coord of top-left corner],
+      yPos: [y-coord of top-left corner]
+    },
+    size: {
+      width: [width in pixels],
+      height: [height in pixels]
+    },
+    titlestr: [the title of the window],
+    lines: [an array of lines of text to be written]
+  }
+  */
+]
 
 function clickListener() {
   // it's best to have one event listener on to
@@ -116,17 +139,61 @@ function menuClickListener(x) {
   }
 }
 
-function showHelp() {
+/**
+ * createWindow():
+ *   forms a window object from the
+ *   arguments supplied, and adds it
+ *   to the `windows` array.
+ */
+function createWindow(xPos, yPos, width, height, titlestr, lines) {
+  windows.push({
+    position: {
+      x: xPos,
+      y: yPos
+    },
+    size: {
+      width: width,
+      height: height
+    },
+    titlestr: titlestr,
+    lines: lines
+  })
+}
 
-  var windowWidthHeight = 200,
-      windowWidthLength = 400
-
-  graphics.fillStyle = constants.bgColor
-  graphics.fillRect(
-    (WIDTH / 2) - (windowWidthLength / 2),   // x1
-    (HEIGHT / 2) - (windowWidthHeight / 2),  // y1
-    windowWidthLength,
-    windowWidthHeight
-  )
+/**
+ * drawWindows():
+ *   draw all of the windows
+ *   from the `windows` array
+ *   onto the screen
+ */
+function drawWindows() {
+  for (var i = 0; i < windows.length; i++) {
+    // draw window background
+    graphics.fillStyle = constants.bgColor
+    graphics.fillRect(windows[i].position.x, windows[i].position.y,
+                      windows[i].size.width, windows[i].size.height)
+    // draw window outline
+    graphics.fillStyle = 'black'
+    graphics.strokeRect(windows[i].position.x, windows[i].position.y,
+                      windows[i].size.width, windows[i].size.height)
+    // draw window title
+    graphics.fillText(windows[i].titlestr,
+                      windows[i].position.x + 10,
+                      windows[i].position.y + 17)
+    // draw title underline
+    graphics.strokeStyle = 'grey'
+    graphics.strokeRect(windows[i].position.x,
+                        windows[i].position.y + constants.fontSize + 8,
+                        windows[i].size.width,
+                        0)
+    // draw window text content
+    for (var j = 0; j < windows[i].lines.length; j++) {
+      graphics.fillText(
+        windows[i].lines[j],
+        windows[i].position.x + 10,
+        windows[i].position.y + 22 + ((j + 1) * constants.fontSize)
+      )
+    }
+  }
 }
 
