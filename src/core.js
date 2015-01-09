@@ -60,14 +60,37 @@ function clickListener() {
       menu.clickListener(x)
     }
 
+  })
+
+  var clickedInWindow = false,
+      movingWindowIndex = null
+
+  canvas.addEventListener( 'mousedown', function(event) {
+    var x = event.clientX,
+        y = event.clientY
+
     for (var i = 0; i < windows.array.length; i++) {
       var win = windows.array[i]
-      if (x > win.position.x && x < win.position.x + win.size.width
-       && y > win.position.y && y < win.position.y + win.size.height) {
-        windows.clickListener(win, x, y)
+
+      var cursorInWindow = x > win.position.x
+                        && x < win.position.x + win.size.width
+                        && y > win.position.y
+                        && y < win.position.y + win.size.height
+
+      if (cursorInWindow) {
+        clickedInWindow = true
+        movingWindowIndex = i
       }
     }
 
+  })
+
+  canvas.addEventListener( 'mouseup', function(event) {
+    var x = event.clientX,
+        y = event.clientY
+    if (clickedInWindow) {
+      windows.moveWindow(movingWindowIndex, x, y)
+    }
   })
 }
 

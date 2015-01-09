@@ -96,14 +96,9 @@ windows.drawAll = function() {
   }
 }
 
-windows.clickListener = function(win, x, y) {
-  var index = this.array.indexOf(win)
-  this.array[index].borderColor = 'red'
-  for (var i = 0; i < this.array.length; i++) {
-    if (i != index) {
-      this.array[i].borderColor = 'black'
-    }
-  }
+windows.moveWindow = function(index, x, y) {
+  this.array[index].position.x = x
+  this.array[index].position.y = y
   this.drawAll()
 }
 
