@@ -7,13 +7,14 @@ windows.array = [
   /*
   example: {
     position: {
-      xPos: [x-coord of top-left corner],
-      yPos: [y-coord of top-left corner]
+      x: [x-coord of top-left corner],
+      y: [y-coord of top-left corner]
     },
     size: {
       width: [width in pixels],
       height: [height in pixels]
     },
+    borderColor: [hex code of the border color],
     titlestr: [the title of the window],
     lines: [an array of lines of text to be written]
   }
@@ -28,7 +29,7 @@ windows.array = [
  *   to the `windows.array` array.
  * =============================================================
  */
-windows.createWindow = function(xPos, yPos, width, height, titlestr, lines) {
+windows.createWindow = function(x, y, width, height, titlestr, lines) {
   for (var i = 0; i < this.array.length; i++) {
     if (this.array[i].titlestr === titlestr) {
       this.array.splice(i, 1)
@@ -37,13 +38,14 @@ windows.createWindow = function(xPos, yPos, width, height, titlestr, lines) {
 
   this.array.push({
     position: {
-      x: xPos,
-      y: yPos
+      x: x,
+      y: y
     },
     size: {
       width: width,
       height: height
     },
+    borderColor: 'black',
     titlestr: titlestr,
     lines: lines
   })
@@ -51,7 +53,7 @@ windows.createWindow = function(xPos, yPos, width, height, titlestr, lines) {
 
 /**
  * =============================================================
- * drawWindows():
+ * drawAll():
  *   draw all of the windows
  *   from the `windows` array
  *   onto the screen
@@ -69,10 +71,11 @@ windows.drawAll = function() {
     graphics.fillRect(this.array[i].position.x, this.array[i].position.y,
                       this.array[i].size.width, this.array[i].size.height)
     // draw window outline
-    graphics.fillStyle = 'black'
+    graphics.strokeStyle = this.array[i].borderColor
     graphics.strokeRect(this.array[i].position.x, this.array[i].position.y,
                       this.array[i].size.width, this.array[i].size.height)
     // draw window title
+    graphics.fillStyle = 'black'
     graphics.fillText(this.array[i].titlestr,
                       this.array[i].position.x + 10,
                       this.array[i].position.y + 17)
@@ -91,5 +94,16 @@ windows.drawAll = function() {
       )
     }
   }
+}
+
+windows.clickListener = function(win, x, y) {
+  var index = this.array.indexOf(win)
+  this.array[index].borderColor = 'red'
+  for (var i = 0; i < this.array.length; i++) {
+    if (i != index) {
+      this.array[i].borderColor = 'black'
+    }
+  }
+  this.drawAll()
 }
 

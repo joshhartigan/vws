@@ -72,6 +72,9 @@ menu.drawBar = function() {
  *   carry out events after clicking
  *   on the menu bar, depending on
  *   the x coord of the cursor.
+ *   (the y coord is guaranteed to be inside,
+ *   because of `core.js`'s 'master' click
+ *   listener.
  * =============================================================
  */
 menu.clickListener = function(x) {

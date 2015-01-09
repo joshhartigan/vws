@@ -41,17 +41,31 @@ function initialise() {
   graphics.strokeRect(0, 0, constants.width, constants.height)
 }
 
+/**
+ * =============================================================
+ * clickListener():
+ *   vws's different 'modules' (e.g. the menu bar)
+ *   use their own click listener, so this function
+ *   is the 'master' click listener that feeds into
+ *   the correct listeners, dependent on mouse
+ *   location.
+ * =============================================================
+ */
 function clickListener() {
-  // it's best to have one event listener on to
-  // the canvas element, and feed the values of
-  // the events into seperate functions once
-  // certain conditions are met.
   canvas.addEventListener( 'click', function(event) {
     var x = event.clientX,
         y = event.clientY
 
     if (y > 0 && y < constants.menuHeight) {
       menu.clickListener(x)
+    }
+
+    for (var i = 0; i < windows.array.length; i++) {
+      var win = windows.array[i]
+      if (x > win.position.x && x < win.position.x + win.size.width
+       && y > win.position.y && y < win.position.y + win.size.height) {
+        windows.clickListener(win, x, y)
+      }
     }
 
   })
