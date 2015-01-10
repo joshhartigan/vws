@@ -99,7 +99,7 @@ windows.drawAll = function() {
 
 windows.moveWindow = function(index, x, y) {
   if (x > 1 && x < constants.width - this.array[index].size.width
-   && y > constants.menuHeight && y < constants.height) {
+   && y > constants.menuHeight && y < constants.height - this.array[index].size.height) {
     this.array[index].position.x = x
     this.array[index].position.y = y
     menu.bar[this.array[index].buttonName].windowPosition.x = x
