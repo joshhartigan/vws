@@ -8,8 +8,8 @@ var canvas,   // the canvas element that the graphics are drawn onto.
     graphics  // container of graphics methods for drawing things.
 
 var constants = {
-  width: 1000,             // x dimension of the screen
-  height: 800,            // y dimension of the screen
+  width: 800,             // x dimension of the screen
+  height: 600,            // y dimension of the screen
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
   bgColor: 'lightgrey',   // the background color for windows

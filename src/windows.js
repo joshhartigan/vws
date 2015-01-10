@@ -29,7 +29,7 @@ windows.array = [
  *   to the `windows.array` array.
  * =============================================================
  */
-windows.createWindow = function(x, y, width, height, titlestr, lines) {
+windows.createWindow = function(x, y, width, height, titlestr, lines, buttonName) {
   for (var i = 0; i < this.array.length; i++) {
     if (this.array[i].titlestr === titlestr) {
       this.array.splice(i, 1)
@@ -37,6 +37,7 @@ windows.createWindow = function(x, y, width, height, titlestr, lines) {
   }
 
   this.array.push({
+    buttonName: buttonName,
     position: {
       x: x,
       y: y
@@ -101,6 +102,8 @@ windows.moveWindow = function(index, x, y) {
    && y > constants.menuHeight && y < constants.height) {
     this.array[index].position.x = x
     this.array[index].position.y = y
+    menu.bar[this.array[index].buttonName].windowPosition.x = x
+    menu.bar[this.array[index].buttonName].windowPosition.y = y
     this.drawAll()
   }
 }

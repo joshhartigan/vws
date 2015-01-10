@@ -3,45 +3,50 @@
 menu.bar = {
   /*
   'example': {
-    position: {
+    barPosition: {
       start: [x-coord of where the button starts - default 0],
       end: [x-coord of where the button ends - default 0]
     },
+    windowPosition: { x, y } [coords of window - if applicable]
     call: [whichever function 'example' should call]
-    active: true // whether or not 'example' can be selected
   }
   */
-  'close': {
-    position: { start: 0, end: 0 },
+  'close': { // {{{
+    barPosition: { start: 0, end: 0 },
     call: function() {
       windows.array.splice(windows.array.length - 1, 1)
       windows.drawAll()
     }
-  },
-  'open': {
-    position: { start: 0, end: 0 },
+  }, // }}}
+  'open': { // {{{
+    barPosition: { start: 0, end: 0 },
+    windowPosition: { x: 10, y: 40 },
     call: function() { windows.createWindow(
-      10, 40, 400, 200,
+      this.windowPosition.x, this.windowPosition.y, 400, 200,
       'a window',
       [ 'a window has been',
         'opened up onto your',
-        'screen. that\'s it.' ]
-    ); windows.drawAll() }
-  },
-  'help': {
-    position: { start: 0, end: 0 },
+        'screen. that\'s it.' ],
+      'open'
+    ); windows.drawAll() },
+  }, // }}}
+  'help': { // {{{
+    barPosition: { start: 0, end: 0 },
+    windowPosition: {
+      x: 300,
+      y: 350
+    },
     call: function() { windows.createWindow(
-      (constants.width / 2) - 100,
-      (constants.height / 2) - 50,
-      200,
-      100,
+      this.windowPosition.x, this.windowPosition.y,
+      200, 100,
       'help',
       [ 'click and drag to move',
         'windows. click \'close\'',
         'in the menu to close',
-        'them.' ]
-    ); windows.drawAll() }
-  }
+        'them.' ],
+      'help'
+    ); windows.drawAll() },
+  } // }}}
 }
 
 /**
@@ -60,9 +65,9 @@ menu.drawBar = function() {
   var textLengthSoFar = constants.padding
   for (item in menu.bar) {
     graphics.fillText(item, textLengthSoFar, 20)
-    menu.bar[item].position.start = textLengthSoFar
+    menu.bar[item].barPosition.start = textLengthSoFar
     textLengthSoFar += item.length * constants.fontSize
-    menu.bar[item].position.end = textLengthSoFar
+    menu.bar[item].barPosition.end = textLengthSoFar
   }
 }
 
@@ -79,8 +84,8 @@ menu.drawBar = function() {
  */
 menu.clickListener = function(x) {
   for (item in menu.bar) {
-    if (x >= menu.bar[item].position.start &&
-        x <= menu.bar[item].position.end) {
+    if (x >= menu.bar[item].barPosition.start &&
+        x <= menu.bar[item].barPosition.end) {
       menu.bar[item].call()
     }
   }
