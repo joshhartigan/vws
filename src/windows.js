@@ -97,8 +97,11 @@ windows.drawAll = function() {
 }
 
 windows.moveWindow = function(index, x, y) {
-  this.array[index].position.x = x
-  this.array[index].position.y = y
-  this.drawAll()
+  if (x > 1 && x < constants.width - this.array[index].size.width
+   && y > constants.menuHeight && y < constants.height) {
+    this.array[index].position.x = x
+    this.array[index].position.y = y
+    this.drawAll()
+  }
 }
 

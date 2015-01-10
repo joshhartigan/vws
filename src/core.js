@@ -8,8 +8,8 @@ var canvas,   // the canvas element that the graphics are drawn onto.
     graphics  // container of graphics methods for drawing things.
 
 var constants = {
-  width: 800,             // x dimension of the screen
-  height: 600,            // y dimension of the screen
+  width: 1000,             // x dimension of the screen
+  height: 800,            // y dimension of the screen
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
   bgColor: 'lightgrey',   // the background color for windows
@@ -52,7 +52,7 @@ function initialise() {
  * =============================================================
  */
 function clickListener() {
-  canvas.addEventListener( 'click', function(event) {
+  canvas.addEventListener('click', function(event) {
     var x = event.clientX,
         y = event.clientY
 
@@ -62,35 +62,39 @@ function clickListener() {
 
   })
 
-  var clickedInWindow = false,
-      movingWindowIndex = null
+  var grabbedWindow = false,
+      grabbedIndex  = null
 
-  canvas.addEventListener( 'mousedown', function(event) {
+  canvas.addEventListener('mousedown', function(event) {
     var x = event.clientX,
         y = event.clientY
 
     for (var i = 0; i < windows.array.length; i++) {
       var win = windows.array[i]
-
       var cursorInWindow = x > win.position.x
                         && x < win.position.x + win.size.width
                         && y > win.position.y
                         && y < win.position.y + win.size.height
-
       if (cursorInWindow) {
-        clickedInWindow = true
-        movingWindowIndex = i
+        grabbedWindow = true
+        grabbedIndex = i
       }
     }
 
   })
 
-  canvas.addEventListener( 'mouseup', function(event) {
-    var x = event.clientX,
-        y = event.clientY
-    if (clickedInWindow) {
-      windows.moveWindow(movingWindowIndex, x, y)
+  canvas.addEventListener('mousemove', function(event) {
+    if (grabbedWindow) {
+      windows.moveWindow(grabbedIndex, event.clientX, event.clientY)
     }
   })
+
+  canvas.addEventListener('mouseup', function(event) {
+    if (grabbedWindow) {
+      windows.drawAll()
+      grabbedWindow = false
+    }
+  })
+
 }
 

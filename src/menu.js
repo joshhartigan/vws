@@ -21,7 +21,7 @@ menu.bar = {
   'open': {
     position: { start: 0, end: 0 },
     call: function() { windows.createWindow(
-      10, 40, 600, 240,
+      10, 40, 400, 200,
       'a window',
       [ 'a window has been',
         'opened up onto your',
@@ -36,10 +36,10 @@ menu.bar = {
       200,
       100,
       'help',
-      [ 'i cannot help you.',
-        'there is no help left',
-        'in this world.',
-        'goodbye.' ]
+      [ 'click and drag to move',
+        'windows. click \'close\'',
+        'in the menu to close',
+        'them.' ]
     ); windows.drawAll() }
   }
 }
