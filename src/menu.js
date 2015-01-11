@@ -18,27 +18,23 @@ menu.bar = {
       windows.drawAll()
     }
   }, // }}}
-  'open': { // {{{
+  'example': { // {{{
     barPosition: { start: 0, end: 0 },
     windowPosition: { x: 10, y: 40 },
-    call: function() { windows.createWindow(
+    call: function() { gui_kit.dialog(
       this.windowPosition.x, this.windowPosition.y, 400, 200,
-      'a window',
-      [ 'a window has been',
-        'opened up onto your',
-        'screen. that\'s it.' ],
-      'open'
+      'example window',
+      [ 'some text can be drawn into a window',
+        'just like it has been done here. this',
+        'kind of window is a standard dialog.' ],
+      'example'
     ); windows.drawAll() },
   }, // }}}
   'help': { // {{{
     barPosition: { start: 0, end: 0 },
-    windowPosition: {
-      x: 300,
-      y: 350
-    },
-    call: function() { windows.createWindow(
-      this.windowPosition.x, this.windowPosition.y,
-      200, 100,
+    windowPosition: { x: 300, y: 350 },
+    call: function() { gui_kit.dialog(
+      this.windowPosition.x, this.windowPosition.y, 200, 100,
       'help',
       [ 'click and drag to move',
         'windows. click \'close\'',
@@ -61,7 +57,7 @@ menu.drawBar = function() {
   graphics.fillStyle = constants.menuColor
   graphics.fillRect(0, 0, constants.width, constants.menuHeight)
 
-  graphics.fillStyle = constants.textColor
+  graphics.fillStyle = 'white'
   var textLengthSoFar = constants.padding
   for (item in menu.bar) {
     graphics.fillText(item, textLengthSoFar, 20)

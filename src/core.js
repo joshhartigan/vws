@@ -13,7 +13,9 @@ var constants = {
   menuHeight: 30,         // how tall the menu bar should be
   menuColor: 'blue',      // the color of the menu bar
   bgColor: 'lightgrey',   // the background color for windows
-  textColor: 'white',     // the text color for the majority of the GUI
+  borderColor: 'black',   // the color for window borders
+  textColor: 'black',     // the text color for the majority of the GUI
+  labelUlColor: 'grey',   // the color for label underlines in windows
   fontSize: 14,           // size of font for all GUI
   font: '14px monospace', // actual font for all GUI
   padding: 10,            // a value used for whitespace in some areas
@@ -72,9 +74,9 @@ function clickListener() {
     for (var i = 0; i < windows.array.length; i++) {
       var win = windows.array[i]
       var cursorInWindow = x > win.position.x
-                        && x < win.position.x + win.size.width
+                        && x < win.position.x + win.width
                         && y > win.position.y
-                        && y < win.position.y + win.size.height
+                        && y < win.position.y + win.height
       if (cursorInWindow) {
         grabbedWindow = true
         grabbedIndex = i
