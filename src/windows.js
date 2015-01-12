@@ -56,8 +56,8 @@ windows.moveWindow = function(index, x, y) {
   if (x > 1 && x < constants.width - this.array[index].width
    && y > constants.menuHeight && y < constants.height - this.array[index].height) {
     // move window
-    this.array[index].position.x = x
-    this.array[index].position.y = y
+    this.array[index].position.x = x - (this.array[index].width / 2)
+    this.array[index].position.y = y - (this.array[index].height / 2)
     // save position for next time window is opened
     menu.bar[ this.array[index].menuLabel ].windowPosition.x = x
     menu.bar[ this.array[index].menuLabel ].windowPosition.y = y
