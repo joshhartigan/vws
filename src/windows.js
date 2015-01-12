@@ -53,14 +53,16 @@ windows.drawAll = function() {
 }
 
 windows.moveWindow = function(index, x, y) {
-  if (x > 1 && x < constants.width - this.array[index].width
-   && y > constants.menuHeight && y < constants.height - this.array[index].height) {
+  var newX = x - (this.array[index].width / 2)
+  var newY = y - (this.array[index].height / 2)
+  if (newX > 1 && newX < constants.width - this.array[index].width
+   && newY > constants.menuHeight && newY < constants.height - this.array[index].height) {
     // move window
-    this.array[index].position.x = x - (this.array[index].width / 2)
-    this.array[index].position.y = y - (this.array[index].height / 2)
+    this.array[index].position.x = newX
+    this.array[index].position.y = newY
     // save position for next time window is opened
-    menu.bar[ this.array[index].menuLabel ].windowPosition.x = x
-    menu.bar[ this.array[index].menuLabel ].windowPosition.y = y
+    menu.bar[ this.array[index].menuLabel ].windowPosition.x = newX
+    menu.bar[ this.array[index].menuLabel ].windowPosition.y = newY
     // ... and redraw
     this.drawAll()
   }
