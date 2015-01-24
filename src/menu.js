@@ -28,7 +28,16 @@ menu.bar = {
         'just like it has been done here. this',
         'kind of window is a standard dialog.' ],
       'example'
-    ); windows.drawAll() },
+    ); windows.drawAll() }
+  }, // }}}
+  'input': { // {{{
+    barPosition: { start: 0, end: 0 },
+    windowPosition: { x: 110, y: 70 },
+    call: function() { gui_kit.prompt(
+      this.windowPosition.x, this.windowPosition.y, 250, 100,
+      'input example',
+      'input'
+    ); windows.drawAll() }
   }, // }}}
   'help': { // {{{
     barPosition: { start: 0, end: 0 },

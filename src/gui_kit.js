@@ -22,3 +22,17 @@ gui_kit.dialog = function(x, y, width, height, label, body, menuLabel) {
   })
 }
 
+gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
+  if (windows.windowExists(label)) {
+    windows.array.splice(windows.getIndexFromLabel(label), 1)
+  }
+
+  windows.array.push({
+    position: { x: x, y: y },
+    width: width,
+    height: height,
+    label: label,
+    menuLabel: menuLabel
+  })
+}
+

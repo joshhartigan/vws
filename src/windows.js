@@ -42,12 +42,14 @@ windows.drawAll = function() {
                         this.array[i].width,
                         0)
     // draw window text content
-    for (var j = 0; j < this.array[i].body.length; j++) {
-      graphics.fillText(
-        this.array[i].body[j],
-        this.array[i].position.x + 10,
-        this.array[i].position.y + 22 + ((j + 1) * constants.fontSize)
-      )
+    if (this.array[i].body) {
+      for (var j = 0; j < this.array[i].body.length; j++) {
+        graphics.fillText(
+          this.array[i].body[j],
+          this.array[i].position.x + 10,
+          this.array[i].position.y + 22 + ((j + 1) * constants.fontSize)
+        )
+      }
     }
   }
 }
