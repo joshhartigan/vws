@@ -53,7 +53,7 @@ windows.drawAll = function() {
 }
 
 windows.moveWindow = function(index, x, y) {
-  var newX = y - (this.array[index].height / 2)
+  var newX = x - (this.array[index].width / 2)
   var newY = y - (this.array[index].height / 2)
 
   if (newX > 1
