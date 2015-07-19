@@ -38,7 +38,7 @@ windows.drawAll = function() {
                         this.array[i].width, this.array[i].height)
     // draw window title
     graphics.fillStyle = constants.textColor
-    graphics.fillText(this.array[i].label,
+    graphics.fillText('(' + this.array[i].label + ')',
                       this.array[i].position.x + 10,
                       this.array[i].position.y + 17)
     // draw title underline

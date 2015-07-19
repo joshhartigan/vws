@@ -18,16 +18,19 @@ menu.bar = {
       windows.drawAll()
     }
   },
-  'example': {
+  'vws': {
     barPosition: { start: 0, end: 0 },
     windowPosition: { x: 10, y: 40 },
     call: function() { gui_kit.dialog(
       this.windowPosition.x, this.windowPosition.y, 400, 200,
-      'example window',
-      [ 'some text can be drawn into a window',
-        'just like it has been done here. this',
-        'kind of window is a standard dialog.' ],
-      'example'
+      'vws',
+      [ 'VWS WINDOWING SYSTEM version BETA',
+        'This program has been built entirely in JavaScript',
+        'so that it can be opened and used on any modern-day',
+        'internet browser. It is open source and the code is',
+        'split between JavaScript files in the way that desktop',
+        'applications are written, for maximum readability.'],
+      'vws'
     ); windows.drawAll() }
   },
   'input': {
