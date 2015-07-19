@@ -2,6 +2,7 @@ window.onload = function() {
   initialise()
   menu.drawBar()
   clickListener()
+  keyListener()
 }
 
 var canvas,   // the canvas element that the graphics are drawn onto.
@@ -61,7 +62,6 @@ function clickListener() {
     if (y > 0 && y < constants.menuHeight) {
       menu.clickListener(x)
     }
-
   })
 
   var grabbedWindow = false,
@@ -102,5 +102,26 @@ function clickListener() {
       grabbedWindow = false
     }
   })
+}
 
+/**
+ * =============================================================
+ * keyListener():
+ *   the equivalent clickListener() for keys, i.e.
+ *   the master 'control panel' for detecting key input
+ * =============================================================
+ */
+function keyListener() {
+  document.addEventListener('keypress', function(event) {
+    // is there an input window open?
+    for (var i = 0; i < windows.array.length; i++) {
+      var win = windows.array[i]
+
+      if (!win.isPrompt) {
+        continue
+      }
+
+      gui_kit.enterText(String.fromCharCode(event.which), i)
+    }
+  })
 }
