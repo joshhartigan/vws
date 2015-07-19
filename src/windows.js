@@ -28,7 +28,12 @@ windows.drawAll = function() {
     graphics.fillRect(this.array[i].position.x, this.array[i].position.y,
                       this.array[i].width, this.array[i].height)
     // draw window outline
-    graphics.strokeStyle = this.array[i].borderColor
+    // the 'current' window gets a darker outline
+    if (i === this.array.length - 1) {
+      graphics.strokeStyle = 'black'
+    } else {
+      graphics.strokeStyle = this.array[i].borderColor
+    }
     graphics.strokeRect(this.array[i].position.x, this.array[i].position.y,
                         this.array[i].width, this.array[i].height)
     // draw window title
