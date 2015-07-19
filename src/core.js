@@ -80,6 +80,11 @@ function clickListener() {
       if (cursorInWindow) {
         grabbedWindow = true
         grabbedIndex = i
+
+        // make the clicked window the most recent
+        // (i.e. the last item in windows.array)
+        windows.array.splice(grabbedIndex, 1)
+        windows.array.push(win)
       }
     }
 
@@ -99,4 +104,3 @@ function clickListener() {
   })
 
 }
-
