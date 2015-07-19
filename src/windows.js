@@ -1,5 +1,6 @@
 /* namespace */ var windows = {}
 
+// the array is in order of recent interaction
 windows.array = []
 
 windows.windowExists = function(label) {
@@ -75,4 +76,3 @@ windows.moveWindow = function(index, x, y) {
     this.drawAll()
   }
 }
-

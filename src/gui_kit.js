@@ -1,7 +1,6 @@
 /* namespace */ var gui_kit = {}
 
 gui_kit.clearScreen = function() {
-  // clear screen
   graphics.fillStyle = 'white'
   graphics.fillRect(1, constants.menuHeight,
                     constants.width - 2, constants.height - constants.menuHeight - 1)
@@ -35,4 +34,3 @@ gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
     menuLabel: menuLabel
   })
 }
-
