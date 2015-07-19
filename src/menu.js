@@ -11,14 +11,14 @@ menu.bar = {
     call: [whichever function 'example' should call]
   }
   */
-  'close': { // {{{
+  'close': {
     barPosition: { start: 0, end: 0 },
     call: function() {
       windows.array.splice(windows.array.length - 1, 1)
       windows.drawAll()
     }
-  }, // }}}
-  'example': { // {{{
+  },
+  'example': {
     barPosition: { start: 0, end: 0 },
     windowPosition: { x: 10, y: 40 },
     call: function() { gui_kit.dialog(
@@ -29,8 +29,8 @@ menu.bar = {
         'kind of window is a standard dialog.' ],
       'example'
     ); windows.drawAll() }
-  }, // }}}
-  'input': { // {{{
+  },
+  'input': {
     barPosition: { start: 0, end: 0 },
     windowPosition: { x: 110, y: 70 },
     call: function() { gui_kit.prompt(
@@ -38,8 +38,8 @@ menu.bar = {
       'input example',
       'input'
     ); windows.drawAll() }
-  }, // }}}
-  'help': { // {{{
+  },
+  'help': {
     barPosition: { start: 0, end: 0 },
     windowPosition: { x: 300, y: 350 },
     call: function() { gui_kit.dialog(
@@ -51,7 +51,7 @@ menu.bar = {
         'them.' ],
       'help'
     ); windows.drawAll() },
-  } // }}}
+  }
 }
 
 /**
@@ -95,4 +95,3 @@ menu.clickListener = function(x) {
     }
   }
 }
-
