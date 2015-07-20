@@ -113,30 +113,28 @@ function clickListener() {
  */
 function keyListener() {
   document.addEventListener('keydown', function(event) {
-    // is there an input window open?
-    for (var i = 0; i < windows.array.length; i++) {
-      var win = windows.array[i]
+    // is the current window an input window?
+    var win = windows.array[windows.array.length - 1]
 
-      if (!win.isPrompt) {
-        continue
-      }
-
-      if (event.which === 8) { // backspace
-        win.input = win.input.slice(0, -1)
-      }
-
-      // is the key a letter?
-      if (event.which >= 65 && event.which <= 90) {
-        win.input += String.fromCharCode(event.which)
-      }
-
-      // is the key a spacebar?
-      if (event.which === 32) {
-        win.input += ' '
-      }
-
-      // lastly, draw the updated text
-      windows.drawAll()
+    if (!win.isPrompt) {
+      return
     }
+
+    if (event.which === 8) { // backspace
+      win.input = win.input.slice(0, -1)
+    }
+
+    // is the key a letter?
+    if (event.which >= 65 && event.which <= 90) {
+      win.input += String.fromCharCode(event.which)
+    }
+
+    // is the key a spacebar?
+    if (event.which === 32) {
+      win.input += ' '
+    }
+
+    // lastly, draw the updated text
+    windows.drawAll()
   })
 }
