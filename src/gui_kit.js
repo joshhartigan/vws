@@ -33,17 +33,6 @@ gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
     label: label,
     menuLabel: menuLabel,
     isPrompt: true,
-    charCount: 0
+    input: ''
   })
-}
-
-gui_kit.enterText = function(text, windowIndex) {
-  var win = windows.array[windowIndex]
-
-  graphics.fillStyle = constants.textColor
-  graphics.fillText(text,
-                    win.position.x + constants.padding + (win.charCount * constants.fontSize / 2),
-                    win.position.y + (constants.padding * 5))
-
-  win.charCount++
 }

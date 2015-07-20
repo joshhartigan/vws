@@ -112,7 +112,7 @@ function clickListener() {
  * =============================================================
  */
 function keyListener() {
-  document.addEventListener('keypress', function(event) {
+  document.addEventListener('keydown', function(event) {
     // is there an input window open?
     for (var i = 0; i < windows.array.length; i++) {
       var win = windows.array[i]
@@ -121,7 +121,22 @@ function keyListener() {
         continue
       }
 
-      gui_kit.enterText(String.fromCharCode(event.which), i)
+      if (event.which === 8) { // backspace
+        win.input = win.input.slice(0, -1)
+      }
+
+      // is the key a letter?
+      if (event.which >= 65 && event.which <= 90) {
+        win.input += String.fromCharCode(event.which)
+      }
+
+      // is the key a spacebar?
+      if (event.which === 32) {
+        win.input += ' '
+      }
+
+      // lastly, draw the updated text
+      windows.drawAll()
     }
   })
 }

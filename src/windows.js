@@ -66,6 +66,13 @@ windows.drawAll = function() {
                         win.position.y + (constants.padding * 3),
                         win.width - (constants.padding * 2),
                         win.height - (constants.padding * 6))
+      // draw the inputted text
+      graphics.fillStyle = constants.textColor
+      graphics.fillText(
+        win.input,
+        win.position.x + (constants.padding * 2),
+        win.position.y + (constants.padding * 3) + constants.fontSize
+      )
     }
   }
 }
