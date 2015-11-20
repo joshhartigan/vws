@@ -1,4 +1,4 @@
-/* namespace */ var menu = {}
+/* namespace */ var menu = {};
 
 menu.bar = {
   /*
@@ -14,8 +14,8 @@ menu.bar = {
   'close': {
     barPosition: { start: 0, end: 0 },
     call: function() {
-      windows.array.splice(windows.array.length - 1, 1)
-      windows.drawAll()
+      windows.array.splice(windows.array.length - 1, 1);
+      windows.drawAll();
     }
   },
   'vws': {
@@ -31,7 +31,7 @@ menu.bar = {
         'split between JavaScript files in the way that desktop',
         'applications are written, for maximum readability.'],
       'vws'
-    ); windows.drawAll() }
+    ); windows.drawAll(); }
   },
   'input': {
     barPosition: { start: 0, end: 0 },
@@ -40,7 +40,7 @@ menu.bar = {
       this.windowPosition.x, this.windowPosition.y, 250, 100,
       'input example',
       'input'
-    ); windows.drawAll() }
+    ); windows.drawAll(); }
   },
   'help': {
     barPosition: { start: 0, end: 0 },
@@ -53,9 +53,9 @@ menu.bar = {
         'in the menu to close',
         'them.' ],
       'help'
-    ); windows.drawAll() },
+    ); windows.drawAll(); },
   }
-}
+};
 
 /**
  * =============================================================
@@ -66,18 +66,18 @@ menu.bar = {
  * =============================================================
  */
 menu.drawBar = function() {
-  graphics.fillStyle = constants.menuColor
-  graphics.fillRect(0, 0, constants.width, constants.menuHeight)
+  graphics.fillStyle = constants.menuColor;
+  graphics.fillRect(0, 0, constants.width, constants.menuHeight);
 
-  graphics.fillStyle = 'white'
-  var textLengthSoFar = constants.padding
+  graphics.fillStyle = 'white';
+  var textLengthSoFar = constants.padding;
   for (item in menu.bar) {
-    graphics.fillText(item, textLengthSoFar, 20)
-    menu.bar[item].barPosition.start = textLengthSoFar
-    textLengthSoFar += item.length * constants.fontSize
-    menu.bar[item].barPosition.end = textLengthSoFar
+    graphics.fillText(item, textLengthSoFar, 20);
+    menu.bar[item].barPosition.start = textLengthSoFar;
+    textLengthSoFar += item.length * constants.fontSize;
+    menu.bar[item].barPosition.end = textLengthSoFar;
   }
-}
+};
 
 /**
  * =============================================================
@@ -94,7 +94,7 @@ menu.clickListener = function(x) {
   for (item in menu.bar) {
     if (x >= menu.bar[item].barPosition.start &&
         x <= menu.bar[item].barPosition.end) {
-      menu.bar[item].call()
+      menu.bar[item].call();
     }
   }
-}
+};

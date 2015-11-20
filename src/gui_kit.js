@@ -1,14 +1,14 @@
-/* namespace */ var gui_kit = {}
+/* namespace */ var gui_kit = {};
 
 gui_kit.clearScreen = function() {
-  graphics.fillStyle = 'white'
+  graphics.fillStyle = 'white';
   graphics.fillRect(1, constants.menuHeight,
-                    constants.width - 2, constants.height - constants.menuHeight - 1)
-}
+    constants.width - 2, constants.height - constants.menuHeight - 1);
+};
 
 gui_kit.dialog = function(x, y, width, height, label, body, menuLabel) {
   if (windows.windowExists(label)) {
-    windows.array.splice(windows.getIndexFromLabel(label), 1)
+    windows.array.splice(windows.getIndexFromLabel(label), 1);
   }
 
   windows.array.push({
@@ -18,12 +18,12 @@ gui_kit.dialog = function(x, y, width, height, label, body, menuLabel) {
     label: label,
     body: body,
     menuLabel: menuLabel
-  })
-}
+  });
+};
 
 gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
   if (windows.windowExists(label)) {
-    windows.array.splice(windows.getIndexFromLabel(label), 1)
+    windows.array.splice(windows.getIndexFromLabel(label), 1);
   }
 
   windows.array.push({
@@ -34,5 +34,5 @@ gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
     menuLabel: menuLabel,
     isPrompt: true,
     input: ''
-  })
-}
+  });
+};

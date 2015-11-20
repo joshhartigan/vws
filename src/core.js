@@ -1,12 +1,12 @@
 window.onload = function() {
-  initialise()
-  menu.drawBar()
-  clickListener()
-  keyListener()
-}
+  initialise();
+  menu.drawBar();
+  clickListener();
+  keyListener();
+};
 
 var canvas,   // the canvas element that the graphics are drawn onto.
-    graphics  // container of graphics methods for drawing things.
+    graphics; // container of graphics methods for drawing things.
 
 var constants = {
   width: 800,             // x dimension of the screen
@@ -20,7 +20,7 @@ var constants = {
   fontSize: 14,           // size of font for all GUI
   font: '14px monospace', // actual font for all GUI
   padding: 10,            // a value used for whitespace in some areas
-}
+};
 
 /**
  * =============================================================
@@ -31,17 +31,17 @@ var constants = {
  * =============================================================
  */
 function initialise() {
-  canvas = document.getElementById('v')
-  graphics = canvas.getContext('2d')
+  canvas = document.getElementById('v');
+  graphics = canvas.getContext('2d');
 
-  canvas.width = constants.width
-  canvas.height = constants.height
+  canvas.width = constants.width;
+  canvas.height = constants.height;
 
-  graphics.font = constants.font
+  graphics.font = constants.font;
 
   // there is a border around vws to distinguish it from
   // the rest of the page
-  graphics.strokeRect(0, 0, constants.width, constants.height)
+  graphics.strokeRect(0, 0, constants.width, constants.height);
 }
 
 /**
@@ -57,51 +57,51 @@ function initialise() {
 function clickListener() {
   canvas.addEventListener('click', function(event) {
     var x = event.clientX,
-        y = event.clientY
+        y = event.clientY;
 
     if (y > 0 && y < constants.menuHeight) {
-      menu.clickListener(x)
+      menu.clickListener(x);
     }
-  })
+  });
 
   var grabbedWindow = false,
-      grabbedIndex  = null
+      grabbedIndex  = null;
 
   canvas.addEventListener('mousedown', function(event) {
     var x = event.clientX,
-        y = event.clientY
+        y = event.clientY;
 
     for (var i = 0; i < windows.array.length; i++) {
-      var win = windows.array[i]
+      var win = windows.array[i];
       var cursorInWindow = x > win.position.x
                         && x < win.position.x + win.width
                         && y > win.position.y
-                        && y < win.position.y + win.height
+                        && y < win.position.y + win.height;
       if (cursorInWindow) {
-        grabbedWindow = true
-        grabbedIndex = i
+        grabbedWindow = true;
+        grabbedIndex = i;
 
         // make the clicked window the most recent
         // (i.e. the last item in windows.array)
-        windows.array.splice(grabbedIndex, 1)
-        windows.array.push(win)
+        windows.array.splice(grabbedIndex, 1);
+        windows.array.push(win);
       }
     }
 
-  })
+  });
 
   canvas.addEventListener('mousemove', function(event) {
     if (grabbedWindow) {
-      windows.moveWindow(grabbedIndex, event.clientX, event.clientY)
+      windows.moveWindow(grabbedIndex, event.clientX, event.clientY);
     }
-  })
+  });
 
   canvas.addEventListener('mouseup', function(event) {
     if (grabbedWindow) {
-      windows.drawAll()
-      grabbedWindow = false
+      windows.drawAll();
+      grabbedWindow = false;
     }
-  })
+  });
 }
 
 /**
@@ -113,28 +113,28 @@ function clickListener() {
  */
 function keyListener() {
   document.addEventListener('keydown', function(event) {
-    // is the current window an input window?
-    var win = windows.array[windows.array.length - 1]
+    var win = windows.array[windows.array.length - 1];
 
+    // is the current window an input window?
     if (!win.isPrompt) {
-      return
+      return;
     }
 
     if (event.which === 8) { // backspace
-      win.input = win.input.slice(0, -1)
+      win.input = win.input.slice(0, -1);
     }
 
     // is the key a letter?
     if (event.which >= 65 && event.which <= 90) {
-      win.input += String.fromCharCode(event.which)
+      win.input += String.fromCharCode(event.which);
     }
 
     // is the key a spacebar?
     if (event.which === 32) {
-      win.input += ' '
+      win.input += ' ';
     }
 
     // lastly, draw the updated text
-    windows.drawAll()
-  })
+    windows.drawAll();
+  });
 }
