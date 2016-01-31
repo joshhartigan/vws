@@ -12,13 +12,13 @@ var constants = {
   width: 800,             // x dimension of the screen
   height: 600,            // y dimension of the screen
   menuHeight: 30,         // how tall the menu bar should be
-  menuColor: 'blue',      // the color of the menu bar
-  bgColor: 'lightgrey',   // the background color for windows
+  menuColor: 'green',     // the color of the menu bar
+  bgColor: '#FFFFBF',     // the background color for windows
   borderColor: 'black',   // the color for window borders
   textColor: 'black',     // the text color for the majority of the GUI
   labelUlColor: 'grey',   // the color for label underlines in windows
-  fontSize: 14,           // size of font for all GUI
-  font: '14px monospace', // actual font for all GUI
+  fontSize: 12,           // size of font for all GUI
+  font: '12px monospace', // actual font for all GUI
   padding: 10,            // a value used for whitespace in some areas
 };
 
@@ -108,11 +108,17 @@ function clickListener() {
  * =============================================================
  * keyListener():
  *   the equivalent clickListener() for keys, i.e.
- *   the master 'control panel' for detecting key input
+ *   the master 'control panel' for detecting key input.
+ *   currently, the only function of this is entering text
+ *   into prompt windows (win.isPrompt).
  * =============================================================
  */
 function keyListener() {
   document.addEventListener('keydown', function(event) {
+    // stop the browser from going back or scrolling
+    if (event.which === 8 || event.which === 32) event.preventDefault();
+
+    if (windows.array.length < 1) return;
     var win = windows.array[windows.array.length - 1];
 
     // is the current window an input window?
@@ -121,17 +127,11 @@ function keyListener() {
     }
 
     if (event.which === 8) { // backspace
-      win.input = win.input.slice(0, -1);
+      prompts.backspace();
     }
 
-    // is the key a letter?
-    if (event.which >= 65 && event.which <= 90) {
-      win.input += String.fromCharCode(event.which);
-    }
-
-    // is the key a spacebar?
-    if (event.which === 32) {
-      win.input += ' ';
+    else {
+      prompts.enterText(event);
     }
 
     // lastly, draw the updated text

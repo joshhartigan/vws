@@ -33,6 +33,7 @@ gui_kit.prompt = function(x, y, width, height, label, menuLabel) {
     label: label,
     menuLabel: menuLabel,
     isPrompt: true,
-    input: ''
+    input: '',
+    maxInputLength: Math.floor((width - (constants.padding * 2)) / constants.fontSize) * 2
   });
 };

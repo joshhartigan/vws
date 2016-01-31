@@ -65,14 +65,17 @@ windows.drawAll = function() {
       graphics.fillRect(win.position.x + constants.padding,
                         win.position.y + (constants.padding * 3),
                         win.width - (constants.padding * 2),
-                        win.height - (constants.padding * 6));
+                        win.height - (constants.padding * 4));
       // draw the inputted text
       graphics.fillStyle = constants.textColor;
-      graphics.fillText(
-        win.input,
-        win.position.x + (constants.padding * 2),
-        win.position.y + (constants.padding * 3) + constants.fontSize
-      );
+      var inputText = win.input.split("\n");
+      for (var i = 0; i < inputText.length; i++) {
+        graphics.fillText(
+          inputText[i],
+          win.position.x + constants.padding,
+          win.position.y + (constants.padding * 3) + constants.fontSize * (i + 1)
+        );
+      }
     }
   }
 };
